@@ -1,0 +1,11 @@
+# Modern Lakehouse Architecture on Azure
+
+## 1. The Medallion Architecture
+The lakehouse pattern organizes data through progressive layers of refinement:
+* **Bronze Layer (Raw / Landing)**: Ingests raw data in its native format (JSON, CSV, Parquet) from source systems with zero transformation. Append-only, partitioned by ingestion date.
+* **Silver Layer (Cleaned / Conformed)**: Data is cleansed, deduplicated, schema-enforced, and enriched. Stored as Delta tables to ensure ACID compliance.
+* **Gold Layer (Aggregated / Semantic)**: Business-level aggregates, star schemas, and dimensional models optimized for BI tools (Power BI) and direct consumption by stakeholders or machine learning models.
+
+## 2. Microsoft Fabric & OneLake Integration
+* **OneLake**: Acts as the "OneDrive for data," providing a single hierarchical namespace across all tenants and workspaces. Eliminates data silos by storing data in open Delta-Parquet formats by default.
+* **Lakehouse vs. Warehouse**: Use Lakehouses for flexible file/tabular processing via Spark and SQL; use Warehouses for enterprise relational reporting and heavy T-SQL workloads.
